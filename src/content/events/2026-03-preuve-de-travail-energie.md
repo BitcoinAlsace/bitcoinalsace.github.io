@@ -11,7 +11,7 @@ free: true
 
 ## Preuve de travail et énergie : gaspillage ou coup de génie ?
 
-Au programme du 2e mercredi de mars : un sujet souvent mal compris, régulièrement attaqué dans les médias — la **preuve de travail** (Proof of Work) et la consommation énergétique de Bitcoin.
+Au programme du 2e mercredi de mars : un sujet souvent mal compris, régulièrement attaqué dans les médias — *la preuve de travail* (Proof of Work) et la consommation énergétique de Bitcoin.
 
 Venez débattre, questionner, apprendre.
 
