@@ -9,11 +9,13 @@ registrationUrl: "https://t.me/+tCVz3Z4dTkhjMzZk"
 free: true
 ---
 
-## Preuve de travail et énergie : gaspillage ou coup de génie ?
+Comme tous les deuxièmes mercredis du mois, retrouvez-nous pour le meet-up mensuel de l’association Bitcoin Alsace !
 
-Au programme du 2e mercredi de mars, un sujet souvent mal compris, régulièrement attaqué dans les médias : la preuve de travail (Proof of Work) et la consommation énergétique de Bitcoin.
+## Au programme :
 
-Venez débattre, questionner, apprendre.
+- à partir de 19h30 : début du meet-up ;
+- 20h15 : présentation dont le thème du mois est **“Preuve de travail et énergie : gaspillage ou coup de génie ?”**
+- dès 21h : échanges libres et ateliers en petits groupes en fonction des envies.
 
 ### Infos pratiques
 
