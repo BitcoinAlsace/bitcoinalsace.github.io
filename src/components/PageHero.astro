@@ -40,9 +40,10 @@ const { title, description, image, imageAlt = '' } = Astro.props;
   .page-hero--banner {
     background: none;
     border-bottom: none;
-    height: clamp(360px, 68.4vh, 792px);
+    height: calc(100dvh - var(--header-height));
     display: flex;
-    align-items: flex-end;
+    align-items: center;
+    justify-content: center;
     padding: 0;
     --page-hero-muted-color: rgba(255, 255, 255, 0.82);
   }
@@ -60,12 +61,7 @@ const { title, description, image, imageAlt = '' } = Astro.props;
   .page-hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      to top,
-      rgba(0, 0, 0, 0.78) 0%,
-      rgba(0, 0, 0, 0.45) 45%,
-      rgba(0, 0, 0, 0.12) 100%
-    );
+    background: rgba(0, 0, 0, 0.45);
   }
 
   .page-hero-content {
@@ -75,17 +71,22 @@ const { title, description, image, imageAlt = '' } = Astro.props;
 
   .page-hero--banner .page-hero-content {
     width: 100%;
-    padding-bottom: 2rem;
+    text-align: center;
+    padding: 2rem;
   }
 
   .page-hero--banner h1 {
     color: #fff;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.55);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
+    margin-bottom: 1rem;
   }
 
   .page-hero--banner p {
     color: var(--page-hero-muted-color);
-    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
-    font-size: 1.05rem;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.55);
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    max-width: 60ch;
+    margin: 0 auto;
   }
 </style>

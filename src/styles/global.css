@@ -1,6 +1,7 @@
 /* === Bitcoin Alsace — Global Styles === */
 
 :root {
+  --header-height: 97px;
   --orange: #f7931a;
   --orange-dark: #d4780e;
   --orange-light: #fef3e2;
