@@ -4,13 +4,17 @@ import "../styles/global.css";
 interface Props {
   title: string;
   description?: string;
+  ogImage?: string;
 }
 
 const {
   title,
   description = "Association Bitcoin Alsace — éducation financière et numérique autour de Bitcoin en Alsace.",
+  ogImage,
 } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = new URL(ogImage ?? '/logo-fondBlanc-ligne.webp', Astro.site).toString();
+const ogTitle = `${title} | Bitcoin Alsace`;
 ---
 
 <!doctype html>
@@ -23,6 +27,19 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <title>{title} | Bitcoin Alsace</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Bitcoin Alsace" />
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:locale" content="fr_FR" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={ogTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
     <!-- RSS feed -->
     <link
       rel="alternate"
