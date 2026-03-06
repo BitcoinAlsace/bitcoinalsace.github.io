@@ -14,10 +14,10 @@ Comme tous les deuxièmes mercredis du mois, retrouvez-nous pour le meet-up mens
 ## Au programme :
 
 - à partir de 19h30 : début du meet-up ;
-- 20h15 : présentation dont le thème du mois est **“Preuve de travail et énergie : gaspillage ou coup de génie ?”**
+- 20h15 : présentation dont le thème du mois est **“Preuve de travail et énergie : gaspillage ou coup de génie ?”** ;
 - dès 21h : échanges libres et ateliers en petits groupes en fonction des envies.
 
 ### Infos pratiques
 
 - **Gratuit**, sans inscription préalable
-- Rendez-vous au bar *La Perestroïka.* Le bar est à deux pas de la gare de Strasbourg, 2 rue Thiergarten. Arrêt de tram/bus : Gare centrale, Alt Winmärik, Faubourg de Saverne.
+- Rendez-vous au bar *La Perestroïka.* Le bar est à deux pas de la gare de Strasbourg, 2 rue Thiergarten. Arrêt de tram/bus : Gare centrale, Alt Winmärik, Faubourg de Saverne.
