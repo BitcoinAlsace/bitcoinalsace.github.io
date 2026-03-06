@@ -9,7 +9,7 @@ registrationUrl: "https://t.me/+tCVz3Z4dTkhjMzZk"
 free: true
 ---
 
-Comme tous les deuxièmes mercredis du mois, retrouvez-nous pour le meet-up mensuel de l’association Bitcoin Alsace !
+Comme tous les deuxième mercredi du mois, retrouvez-nous pour le meet-up mensuel de l’association Bitcoin Alsace !
 
 ## Au programme :
 
