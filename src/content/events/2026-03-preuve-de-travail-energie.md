@@ -18,4 +18,4 @@ Venez débattre, questionner, apprendre.
 ### Infos pratiques
 
 - **Gratuit**, sans inscription préalable
-- Rendez-vous au bar *La Perestroïka.* Le bar est à deux pas de la gare de Strasbourg, 2 rue Thiergarten. Arrêt de tram/bus Gare centrale, Alt Winmärik, Faubourg National, Faubourg de Saverne.
+- Rendez-vous au bar *La Perestroïka.* Le bar est à deux pas de la gare de Strasbourg, 2 rue Thiergarten. Arrêt de tram/bus Gare centrale, Alt Winmärik, Faubourg de Saverne.
