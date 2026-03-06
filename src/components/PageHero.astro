@@ -13,9 +13,9 @@ const { title, description, image, imageAlt = '' } = Astro.props;
   {image && <img class="page-hero-img" src={image} alt={imageAlt} />}
   {image && <div class="page-hero-overlay" aria-hidden="true" />}
   <div class="container page-hero-content">
+    {description && <p>{description}</p>}
     <slot name="before-title" />
     <h1>{title}</h1>
-    {description && <p>{description}</p>}
     <slot />
   </div>
 </div>
@@ -42,8 +42,7 @@ const { title, description, image, imageAlt = '' } = Astro.props;
     border-bottom: none;
     height: calc(100dvh - var(--header-height));
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
     padding: 0;
     --page-hero-muted-color: rgba(255, 255, 255, 0.82);
   }
@@ -71,8 +70,9 @@ const { title, description, image, imageAlt = '' } = Astro.props;
 
   .page-hero--banner .page-hero-content {
     width: 100%;
-    text-align: center;
-    padding: 2rem;
+    text-align: left;
+    padding-top: calc((100dvh - var(--header-height)) / 3);
+    padding-inline: 2rem;
   }
 
   .page-hero--banner h1 {
@@ -80,13 +80,15 @@ const { title, description, image, imageAlt = '' } = Astro.props;
     font-size: clamp(2rem, 5vw, 3.5rem);
     text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
     margin-bottom: 1rem;
+    margin-top: -0.50rem;
   }
 
   .page-hero--banner p {
     color: var(--page-hero-muted-color);
     text-shadow: 0 1px 8px rgba(0, 0, 0, 0.55);
-    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-size: clamp(0.85rem, 1.5vw, 1rem);
     max-width: 60ch;
-    margin: 0 auto;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
   }
 </style>

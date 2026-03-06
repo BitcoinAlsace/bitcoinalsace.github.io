@@ -25,12 +25,8 @@ const pastEvents = sortedEvents.filter(e => e.data.date < new Date()).slice(0, 6
           au service des citoyens, collectivités, recherche et acteurs économiques, sans but lucratif.
         </p>
         <p class="hero-meetup">
-          🤝 Rejoignez-nous chaque <strong>2e mercredi du mois</strong> pour le Bitcoin Meetup — <a href="/evenements">gratuit, sans inscription</a>.
+          🤝 Rejoignez-nous chaque <strong>2e mercredi du mois</strong> — <a href="/evenements">gratuit, sans inscription</a>.
         </p>
-        <div class="hero-actions">
-          <a href="/adherer" class="btn btn-primary">Rejoindre l'association</a>
-          <a href="/evenements" class="btn btn-outline">Voir les événements</a>
-        </div>
       </div>
     </div>
   </section>
@@ -130,6 +126,7 @@ const pastEvents = sortedEvents.filter(e => e.data.date < new Date()).slice(0, 6
   /* Contact */
   .contact-strip {
     padding: 2.5rem 0;
-    background: var(--orange-light);
+    background: linear-gradient(135deg, var(--orange-light) 0%, var(--white) 60%);
+    border-top: 1px solid var(--border);
   }
 </style>
