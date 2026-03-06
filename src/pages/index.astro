@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import EventCard from '../components/EventCard.astro';
 import SocialLinks from '../components/SocialLinks.astro';
+import PageHero from '../components/PageHero.astro';
 import { getCollection } from 'astro:content';
 
 const allEvents = await getCollection('events', ({ data }) => !data.draft);
@@ -10,26 +11,19 @@ const sortedEvents = allEvents.sort((a, b) => b.data.date.valueOf() - a.data.dat
 const upcomingEvents = sortedEvents.filter(e => e.data.date >= new Date());
 const pastEvents = sortedEvents.filter(e => e.data.date < new Date()).slice(0, 6);
 ---
-<Layout title="Accueil" description="Nous accompagnons la réflexion citoyenne et institutionnelle sur les cryptomonnaies — en particulier Bitcoin.">
+<Layout title="Accueil" description="L'éducation financière et numérique pour tous.">
 
   <!-- Hero -->
-  <section class="hero">
-    <div class="container hero-inner">
-      <div class="hero-text">
-        <h1>L'association des <span>Bitcoiners Alsaciens</span></h1>
-        <p class="hero-lead">
-          Nous accompagnons la réflexion citoyenne et institutionnelle sur les cryptomonnaies — en particulier Bitcoin.
-        </p>
-        <p class="hero-sub">
-          Nous œuvrons pour une éducation financière et numérique, contribuant à un écosystème local éthique et responsable,
-          au service des citoyens, collectivités, recherche et acteurs économiques, sans but lucratif.
-        </p>
-        <p class="hero-meetup">
-          🤝 Rejoignez-nous chaque <strong>2e mercredi du mois</strong> — <a href="/evenements">gratuit, sans inscription</a>.
-        </p>
-      </div>
-    </div>
-  </section>
+  <PageHero
+    title="Vous accompagner"
+    description="L'éducation financière et numérique pour tous."
+    image="/images/pages/home.webp"
+    imageAlt="Bitcoin Alsace"
+  >
+    <p class="hero-meetup">
+      🤝 Rejoignez-nous chaque <strong>2e mercredi du mois</strong> — <a href="/evenements">gratuit, sans inscription</a>.
+    </p>
+  </PageHero>
 
   <!-- Events section -->
   <section class="events-section">
@@ -89,28 +83,24 @@ const pastEvents = sortedEvents.filter(e => e.data.date < new Date()).slice(0, 6
 
 <style>
   /* Hero */
-  .hero {
-    background: linear-gradient(135deg, var(--orange-light) 0%, var(--white) 60%);
-    border-bottom: 1px solid var(--border);
-    padding: 4rem 0;
+  .hero-sub {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 1rem;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.55);
   }
-  .hero-inner {
-    display: flex;
-    align-items: center;
-    gap: 3rem;
+  .hero-meetup {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 1.5rem;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.55);
   }
-  .hero-text { flex: 1; }
-  .hero-text h1 { font-size: 2.5rem; margin-bottom: 1rem; font-family: Georgia, 'Palatino Linotype', Palatino, serif; }
-  .hero-text h1 span { color: var(--orange); }
-  .hero-lead { font-size: 1.1rem; color: var(--gray); margin-bottom: 0.75rem; max-width: 520px; }
-  .hero-sub { font-size: 0.95rem; color: var(--gray); margin-bottom: 0.75rem; max-width: 520px; }
-  .hero-meetup { font-size: 0.95rem; margin-bottom: 1.5rem; max-width: 520px; }
-  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
-  @media (max-width: 768px) {
-    .hero { padding: 2.5rem 0; }
-    .hero-inner { flex-direction: column; gap: 1.5rem; text-align: center; }
-    .hero-text h1 { font-size: 1.8rem; }
-    .hero-actions { justify-content: center; }
+  .hero-meetup a {
+    color: #fff;
+    text-decoration: underline;
+  }
+  .hero-meetup a:hover {
+    color: var(--orange-light);
   }
 
   /* Events */
@@ -128,5 +118,12 @@ const pastEvents = sortedEvents.filter(e => e.data.date < new Date()).slice(0, 6
     padding: 2.5rem 0;
     background: linear-gradient(135deg, var(--orange-light) 0%, var(--white) 60%);
     border-top: 1px solid var(--border);
+  }
+</style>
+
+<style is:global>
+  /* Remove the footer's top margin specifically on the home page to remove the gap after the contact strip */
+  .site-footer {
+    margin-top: 0 !important;
   }
 </style>

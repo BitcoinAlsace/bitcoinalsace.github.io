@@ -131,6 +131,7 @@ const ogTitle = `${title} | Bitcoin Alsace`;
             <li><a href="/commercants-en-alsace">Commerçants</a></li>
             <li><a href="/donation">Donation</a></li>
             <li><a href="/conference-annuelle">Conférence Annuelle</a></li>
+            <li><a href="/satoshi">Citations</a></li>
             <li><a href="/contact">Contact</a></li>
           </ul>
         </div>
@@ -156,6 +157,9 @@ const ogTitle = `${title} | Bitcoin Alsace`;
             </li>
           </ul>
         </div>
+      </div>
+      <div class="footer-bottom">
+        <p>Conçu par Bitcoin Alsace & <a href="https://1tickle.xyz" target="_blank" rel="noopener noreferrer">1tickle</a></p>
       </div>
     </footer>
 
@@ -444,6 +448,22 @@ const ogTitle = `${title} | Bitcoin Alsace`;
       .green-hosting {
         margin-top: 1rem;
         font-size: 0.85rem;
+      }
+
+      .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 1.5rem;
+        text-align: center;
+        font-size: 0.75rem;
+        color: #666;
+      }
+      .footer-bottom a {
+        color: #777;
+        text-decoration: none;
+        transition: color 0.15s;
+      }
+      .footer-bottom a:hover {
+        color: var(--orange);
       }
 
       @media (max-width: 768px) {
