@@ -24,6 +24,12 @@ const categoryLabels = {
 const formatDate = (d: Date) =>
   d.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 
+// Date-only YAML values are parsed as UTC midnight → getUTCHours/Minutes both 0
+const hasTime = (d: Date) => d.getUTCHours() !== 0 || d.getUTCMinutes() !== 0;
+
+const formatTime = (d: Date) =>
+  d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+
 const isUpcoming = event.data.date >= new Date();
 ---
 <Layout
@@ -38,7 +44,7 @@ const isUpcoming = event.data.date >= new Date();
     </div>
     <div class="event-info">
       <time datetime={event.data.date.toISOString()}>
-        📅 {formatDate(event.data.date)}{event.data.endDate ? ` – ${formatDate(event.data.endDate)}` : ''}
+        📅 {formatDate(event.data.date)}{hasTime(event.data.date) ? ` à ${formatTime(event.data.date)}` : ''}{event.data.endDate ? ` – ${formatDate(event.data.endDate)}${hasTime(event.data.endDate) ? ` à ${formatTime(event.data.endDate)}` : ''}` : ''}
       </time>
       {event.data.location && <span>📍 {event.data.location}</span>}
       {event.data.free && <span class="free-badge">Gratuit</span>}
@@ -70,10 +76,10 @@ const isUpcoming = event.data.date >= new Date();
           <dl class="details-list">
             <dt>Date</dt>
             <dd>
-              <time datetime={event.data.date.toISOString()}>{formatDate(event.data.date)}</time>
+              <time datetime={event.data.date.toISOString()}>{formatDate(event.data.date)}{hasTime(event.data.date) ? ` à ${formatTime(event.data.date)}` : ''}</time>
               {event.data.endDate && (
                 <>
-                  <br />→ <time datetime={event.data.endDate.toISOString()}>{formatDate(event.data.endDate)}</time>
+                  <br />au <time datetime={event.data.endDate.toISOString()}>{formatDate(event.data.endDate)}{hasTime(event.data.endDate) ? ` à ${formatTime(event.data.endDate)}` : ''}</time>
                 </>
               )}
             </dd>
