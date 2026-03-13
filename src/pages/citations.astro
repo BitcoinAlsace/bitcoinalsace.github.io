@@ -1,0 +1,255 @@
+---
+// Standalone page — no layout
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/webp" href="/favicon.webp" />
+    <title>Citations | Bitcoin Alsace</title>
+    <style>
+      *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+      body {
+        background: #000;
+        overflow: hidden;
+        font-family: 'Courier New', monospace;
+      }
+
+      canvas {
+        display: block;
+        position: fixed;
+        inset: 0;
+      }
+
+      .back-link {
+        position: fixed;
+        top: 1.25rem;
+        left: 1.25rem;
+        color: #f7931a;
+        text-decoration: none;
+        font-family: 'Courier New', monospace;
+        font-size: 0.85rem;
+        z-index: 100;
+        opacity: 0.6;
+        letter-spacing: 0.05em;
+        transition: opacity 0.2s;
+      }
+      .back-link:hover { opacity: 1; }
+
+      .quote-wrap {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
+        z-index: 50;
+        padding: 2rem;
+      }
+
+      .quote-box {
+        max-width: 740px;
+        text-align: center;
+        opacity: 0;
+        transition: opacity 0.8s ease;
+      }
+      .quote-box.visible { opacity: 1; }
+
+      .quote-text {
+        display: block;
+        color: #fff;
+        font-family: 'Courier New', monospace;
+        font-size: clamp(0.95rem, 2.2vw, 1.35rem);
+        line-height: 1.7;
+        letter-spacing: 0.02em;
+        text-shadow:
+          0 0 10px rgba(247, 147, 26, 0.9),
+          0 0 30px rgba(247, 147, 26, 0.5),
+          0 0 60px rgba(247, 147, 26, 0.2);
+      }
+
+      .quote-author {
+        display: block;
+        margin-top: 1.25rem;
+        color: #f7931a;
+        font-size: 0.8rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        text-shadow: 0 0 10px rgba(247, 147, 26, 0.7);
+      }
+
+      .bitcoin-symbol {
+        position: fixed;
+        bottom: 1.5rem;
+        right: 1.5rem;
+        font-size: 1.8rem;
+        color: #f7931a;
+        opacity: 0.25;
+        z-index: 100;
+        animation: pulse 3s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%, 100% { opacity: 0.2; }
+        50% { opacity: 0.5; }
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="matrix"></canvas>
+    <a href="/" class="back-link">← retour</a>
+
+    <div class="quote-wrap">
+      <div class="quote-box" id="quoteBox">
+        <span class="quote-text" id="quoteText"></span>
+        <span class="quote-author">— Satoshi Nakamoto</span>
+      </div>
+    </div>
+
+    <div class="bitcoin-symbol">₿</div>
+
+    <script>
+      const QUOTES = [
+        "The Times 03/Jan/2009 Le Chancelier est à l'aube d'un second plan de sauvetage des banques.",
+        "Le problème fondamental de la monnaie conventionnelle est toute la confiance qu'elle requiert pour fonctionner.",
+        "Les pièces perdues ne font qu'augmenter légèrement la valeur des pièces de tous les autres. Considérez cela comme un don à tout le monde.",
+        "Il pourrait être judicieux d'en obtenir juste au cas où cela prendrait de l'ampleur.",
+        "J'ai travaillé sur un nouveau système d'argent électronique totalement pair-à-pair, sans tiers de confiance.",
+        "Si vous ne le croyez pas ou ne le comprenez pas, je n'ai pas le temps de vous convaincre, désolé.",
+        "Nous pouvons gagner une bataille majeure dans la course aux armements et gagner un nouveau territoire de liberté pour plusieurs années.",
+        "Les gouvernements sont doués pour couper la tête des réseaux contrôlés centralement comme Napster, mais les réseaux P2P purs comme Gnutella et Tor semblent tenir bon.",
+        "Avec une monnaie électronique basée sur une preuve cryptographique, sans avoir besoin de faire confiance à un intermédiaire tiers, l'argent peut être sécurisé et les transactions sans effort.",
+        "Une version purement pair-à-pair de l'argent électronique permettrait d'envoyer des paiements en ligne directement d'une partie à une autre sans passer par une institution financière.",
+      ];
+
+      // Full quote text as a continuous stream for each column
+      const STREAM = QUOTES.join('  ');
+
+      const canvas = document.getElementById('matrix');
+      const ctx = canvas.getContext('2d');
+
+      const FONT_SIZE = 15;
+      let cols = 0;
+      let drops = [];    // current row (can be fractional for slow speed)
+      let cursors = [];  // position in STREAM for each column
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const newCols = Math.floor(canvas.width / FONT_SIZE);
+        if (newCols !== cols) {
+          if (newCols > cols) {
+            for (let i = cols; i < newCols; i++) {
+              drops.push(Math.random() * -(canvas.height / FONT_SIZE));
+              cursors.push(Math.floor(Math.random() * STREAM.length));
+            }
+          } else {
+            drops.length = newCols;
+            cursors.length = newCols;
+          }
+          cols = newCols;
+        }
+      }
+
+      resize();
+      window.addEventListener('resize', resize);
+
+      // Only advance drops every N frames for slower fall
+      const SPEED_DIVISOR = 3; // higher = slower
+      let frameCount = 0;
+
+      function drawFrame() {
+        frameCount++;
+
+        // Fade overlay — lighter = longer trail
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.03)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.font = `${FONT_SIZE}px "Courier New", monospace`;
+
+        const advance = (frameCount % SPEED_DIVISOR === 0);
+
+        for (let i = 0; i < cols; i++) {
+          const row = Math.floor(drops[i]);
+          const y = row * FONT_SIZE;
+
+          if (y < 0) {
+            if (advance) drops[i] += 0.5;
+            continue;
+          }
+
+          // Pick next character in quote stream
+          const char = STREAM[cursors[i] % STREAM.length];
+          const x = i * FONT_SIZE;
+
+          // Head: bright white
+          ctx.fillStyle = '#ffffff';
+          ctx.fillText(char, x, y);
+
+          // One step behind: full orange
+          const prevChar = STREAM[(cursors[i] - 1 + STREAM.length) % STREAM.length];
+          ctx.fillStyle = '#f7931a';
+          ctx.fillText(prevChar, x, y - FONT_SIZE);
+
+          if (advance) {
+            drops[i]++;
+            cursors[i]++;
+
+            // Reset column randomly when it passes the bottom
+            if (y > canvas.height && Math.random() > 0.975) {
+              drops[i] = Math.random() * -60;
+              cursors[i] = Math.floor(Math.random() * STREAM.length);
+            }
+          }
+        }
+      }
+
+      setInterval(drawFrame, 30); // ~33 fps, actual fall speed controlled by SPEED_DIVISOR
+
+      // --- Quote cycling with typewriter ---
+      const quoteBox = document.getElementById('quoteBox');
+      const quoteText = document.getElementById('quoteText');
+
+      let quoteIndex = 0;
+      let typeTimer = null;
+
+      function typeWriter(text, el, onDone) {
+        el.textContent = '';
+        let i = 0;
+        clearInterval(typeTimer);
+        typeTimer = setInterval(() => {
+          el.textContent += text[i];
+          i++;
+          if (i >= text.length) {
+            clearInterval(typeTimer);
+            if (onDone) onDone();
+          }
+        }, 38);
+      }
+
+      function showNextQuote() {
+        quoteBox.classList.remove('visible');
+
+        setTimeout(() => {
+          const q = QUOTES[quoteIndex % QUOTES.length];
+          quoteIndex++;
+
+          typeWriter(q, quoteText, () => {
+            // Hold displayed, then fade out and schedule next
+            setTimeout(() => {
+              quoteBox.classList.remove('visible');
+              setTimeout(showNextQuote, 1200);
+            }, 4500);
+          });
+
+          quoteBox.classList.add('visible');
+        }, 800);
+      }
+
+      // Start after a brief delay to let the matrix fill the screen
+      setTimeout(showNextQuote, 1800);
+    </script>
+  </body>
+</html>

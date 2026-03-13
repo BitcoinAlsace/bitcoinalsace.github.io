@@ -64,10 +64,10 @@ const isUpcoming = event.data.date >= new Date();
         )}
         <Content />
 
-        {event.data.registrationUrl && (
+        {event.data.eventUrl && (
           <div class="register-cta">
-            <a href={event.data.registrationUrl} class="btn btn-primary" target="_blank" rel="noopener noreferrer">
-              S'inscrire / Rejoindre
+            <a href={event.data.eventUrl} class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+              {event.data.urlText ?? 'En savoir plus'}
             </a>
           </div>
         )}

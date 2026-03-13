@@ -1,73 +1,129 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import EventCard from '../components/EventCard.astro';
-import SocialLinks from '../components/SocialLinks.astro';
-import PageHero from '../components/PageHero.astro';
-import { getCollection } from 'astro:content';
+import Layout from "../layouts/Layout.astro";
+import EventCard from "../components/EventCard.astro";
+import SocialLinks from "../components/SocialLinks.astro";
+import PageHero from "../components/PageHero.astro";
+import { getCollection } from "astro:content";
 
-const allEvents = await getCollection('events', ({ data }) => !data.draft);
-const sortedEvents = allEvents.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const allEvents = await getCollection("events", ({ data }) => !data.draft);
+const sortedEvents = allEvents.sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
 
-const upcomingEvents = sortedEvents.filter(e => e.data.date >= new Date());
-const pastEvents = sortedEvents.filter(e => e.data.date < new Date()).slice(0, 6);
+const upcomingEvents = sortedEvents.filter((e) => e.data.date >= new Date());
+const pastEvents = sortedEvents.filter((e) => e.data.date < new Date());
+const INITIAL_PAST = 6;
+
+const categoryLabels: Record<string, string> = {
+  meetup: "🤝 Meetup",
+  conference: "🗣️ Conférence",
+  actu: "🎭 Actualité",
+  autre: "📅 Autre",
+};
+
+// Collect categories present across all displayed events
+const allDisplayed = [...upcomingEvents, ...pastEvents];
+const presentCategories = [
+  ...new Set(allDisplayed.map((e) => e.data.category)),
+];
 ---
-<Layout title="Accueil" description="L'éducation financière et numérique pour tous.">
 
+<Layout
+  title="Accueil"
+  description="L'éducation financière et numérique pour tous"
+  ogImage="/images/pages/home.webp"
+>
   <!-- Hero -->
   <PageHero
     title="Vous accompagner"
-    description="L'éducation financière et numérique pour tous."
+    description="L'éducation financière et numérique pour tous"
     image="/images/pages/home.webp"
     imageAlt="Bitcoin Alsace"
   >
     <p class="hero-meetup">
-      🤝 Rejoignez-nous chaque <strong>2e mercredi du mois</strong> — <a href="/evenements">gratuit, sans inscription</a>.
+      🤝 Rejoignez-nous chaque <strong>2e mercredi du mois</strong> — <a
+        href="/evenements">gratuit, sans inscription</a
+      >.
     </p>
   </PageHero>
 
   <!-- Events section -->
   <section class="events-section">
     <div class="container">
-
-      {upcomingEvents.length > 0 && (
-        <div class="events-block">
-          <h2 class="section-title">🔮 Évènements <span>à venir</span></h2>
-          <div class="events-grid">
-            {upcomingEvents.map(event => (
-              <EventCard
-                title={event.data.title}
-                date={event.data.date}
-                endDate={event.data.endDate}
-                category={event.data.category}
-                image={event.data.image}
-                slug={event.id}
-              />
+      <!-- Category filter -->
+      {
+        allDisplayed.length > 0 && (
+          <div
+            class="filter-bar"
+            role="group"
+            aria-label="Filtrer par catégorie"
+          >
+            <button class="filter-btn active" data-filter="all">
+              Tout
+            </button>
+            {presentCategories.map((cat) => (
+              <button class="filter-btn" data-filter={cat}>
+                {categoryLabels[cat]}
+              </button>
             ))}
           </div>
-        </div>
-      )}
+        )
+      }
 
-      {pastEvents.length > 0 && (
-        <div class="events-block">
-          <h2 class="section-title">Publications <span>récentes</span></h2>
-          <div class="events-grid">
-            {pastEvents.map(event => (
-              <EventCard
-                title={event.data.title}
-                date={event.data.date}
-                endDate={event.data.endDate}
-                category={event.data.category}
-                image={event.data.image}
-                slug={event.id}
-              />
-            ))}
+      {
+        upcomingEvents.length > 0 && (
+          <div class="events-block" id="upcoming-block">
+            <h2 class="section-title">
+              🔮 Évènements <span>à venir</span>
+            </h2>
+            <div class="events-grid">
+              {upcomingEvents.map((event) => (
+                <div class="card-wrapper" data-category={event.data.category}>
+                  <EventCard
+                    title={event.data.title}
+                    date={event.data.date}
+                    endDate={event.data.endDate}
+                    category={event.data.category}
+                    image={event.data.image}
+                    slug={event.id}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
-          <div style="text-align:center; margin-top:2rem;">
-            <a href="/evenements" class="btn btn-outline">Tous les évènements →</a>
-          </div>
-        </div>
-      )}
+        )
+      }
 
+      {
+        pastEvents.length > 0 && (
+          <div class="events-block" id="past-block">
+            <h2 class="section-title">
+              Publications <span>récentes</span>
+            </h2>
+            <div class="events-grid">
+              {pastEvents.map((event, idx) => (
+                <div class:list={["card-wrapper", idx >= INITIAL_PAST && "is-extra"]} data-category={event.data.category}>
+                  <EventCard
+                    title={event.data.title}
+                    date={event.data.date}
+                    endDate={event.data.endDate}
+                    category={event.data.category}
+                    image={event.data.image}
+                    slug={event.id}
+                  />
+                </div>
+              ))}
+            </div>
+            {pastEvents.length > INITIAL_PAST && (
+              <div id="show-more-wrap" style="text-align:center; margin-top:2rem;">
+                <button id="show-more-btn" class="btn btn-outline">
+                  Voir les {pastEvents.length - INITIAL_PAST} publications restantes
+                </button>
+              </div>
+            )}
+          </div>
+        )
+      }
     </div>
   </section>
 
@@ -78,17 +134,10 @@ const pastEvents = sortedEvents.filter(e => e.data.date < new Date()).slice(0, 6
       <SocialLinks />
     </div>
   </section>
-
 </Layout>
 
 <style>
   /* Hero */
-  .hero-sub {
-    font-size: 1.2rem;
-    color: rgba(255, 255, 255, 0.95);
-    margin-bottom: 1rem;
-    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.55);
-  }
   .hero-meetup {
     font-size: 1rem;
     color: rgba(255, 255, 255, 0.9);
@@ -103,9 +152,45 @@ const pastEvents = sortedEvents.filter(e => e.data.date < new Date()).slice(0, 6
     color: var(--orange-light);
   }
 
+  /* Filter bar */
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+  .filter-btn {
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    border: 1.5px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    font-size: 0.875rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition:
+      background 0.15s,
+      border-color 0.15s,
+      color 0.15s;
+    white-space: nowrap;
+  }
+  .filter-btn:hover {
+    border-color: var(--orange);
+    color: var(--orange);
+  }
+  .filter-btn.active {
+    background: var(--orange);
+    border-color: var(--orange);
+    color: #fff;
+  }
+
   /* Events */
-  .events-section { padding: 3.5rem 0; }
-  .events-block { margin-bottom: 3rem; }
+  .events-section {
+    padding: 3.5rem 0;
+  }
+  .events-block {
+    margin-bottom: 3rem;
+  }
   .events-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -113,17 +198,66 @@ const pastEvents = sortedEvents.filter(e => e.data.date < new Date()).slice(0, 6
     margin-top: 1.5rem;
   }
 
+  .card-wrapper {
+    display: contents;
+  }
+  .card-wrapper.hidden,
+  .card-wrapper.is-extra {
+    display: none;
+  }
+
   /* Contact */
   .contact-strip {
     padding: 2.5rem 0;
-    background: linear-gradient(135deg, var(--orange-light) 0%, var(--white) 60%);
+    background: linear-gradient(
+      135deg,
+      var(--orange-light) 0%,
+      var(--white) 60%
+    );
     border-top: 1px solid var(--border);
   }
 </style>
 
 <style is:global>
-  /* Remove the footer's top margin specifically on the home page to remove the gap after the contact strip */
+  /* Remove the footer's top margin specifically on the home page */
   .site-footer {
     margin-top: 0 !important;
   }
 </style>
+
+<script>
+  const filterBtns =
+    document.querySelectorAll<HTMLButtonElement>(".filter-btn");
+  const wrappers = document.querySelectorAll<HTMLElement>(".card-wrapper");
+  const upcomingBlock = document.getElementById("upcoming-block");
+  const pastBlock = document.getElementById("past-block");
+
+  function applyFilter(category: string) {
+    wrappers.forEach((w) => {
+      const match = category === "all" || w.dataset.category === category;
+      w.classList.toggle("hidden", !match);
+    });
+
+    // Hide section blocks if they have no visible cards
+    [upcomingBlock, pastBlock].forEach((block) => {
+      if (!block) return;
+      const visibleCards = block.querySelectorAll(".card-wrapper:not(.hidden)");
+      block.style.display = visibleCards.length === 0 ? "none" : "";
+    });
+  }
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      filterBtns.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      applyFilter(btn.dataset.filter ?? "all");
+    });
+  });
+
+  const showMoreBtn = document.getElementById("show-more-btn");
+  const showMoreWrap = document.getElementById("show-more-wrap");
+  showMoreBtn?.addEventListener("click", () => {
+    document.querySelectorAll<HTMLElement>(".card-wrapper.is-extra").forEach((el) => el.classList.remove("is-extra"));
+    showMoreWrap?.remove();
+  });
+</script>

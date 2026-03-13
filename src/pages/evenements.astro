@@ -4,7 +4,7 @@ import EventCard from '../components/EventCard.astro';
 import PageHero from '../components/PageHero.astro';
 import { getCollection } from 'astro:content';
 
-const allEvents = await getCollection('events', ({ data }) => !data.draft);
+const allEvents = await getCollection('events', ({ data }) => !data.draft && (data.category === 'meetup' || data.category === 'conference'));
 const sortedEvents = allEvents.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 const upcomingEvents = sortedEvents.filter(e => e.data.date >= new Date());
@@ -13,8 +13,9 @@ const pastEvents = sortedEvents.filter(e => e.data.date < new Date());
 <Layout
   title="Évènements"
   description="Retrouvez tous les événements Bitcoin Alsace : meetups mensuels, conférences, ateliers et actualités."
+  ogImage="/images/pages/meetup.webp"
 >
-  <PageHero title="Évènements" description="Rencontrer la communauté." image="/images/pages/meetup.webp" imageAlt="Évènements Bitcoin Alsace" />
+  <PageHero title="Évènements" description="Rencontrer la communauté" image="/images/pages/meetup.webp" imageAlt="Évènements Bitcoin Alsace" />
 
   <div class="page-content">
     <div class="container">
@@ -75,11 +76,6 @@ const pastEvents = sortedEvents.filter(e => e.data.date < new Date());
       )}
 
       <div class="contribute-box card">
-        <h3>Ajouter un événement</h3>
-        <p>
-          Les événements de ce site sont écrits en Markdown et hébergés sur Git.
-          Toute personne peut contribuer en ouvrant une pull request.
-        </p>
         <a
           href="https://github.com/bitcoinalsace/website/new/main/src/content/events"
           class="btn btn-primary"
@@ -137,7 +133,6 @@ const pastEvents = sortedEvents.filter(e => e.data.date < new Date());
     background: var(--orange-light);
     border-color: #f7c48a;
     margin-top: 1rem;
+    text-align: center;
   }
-  .contribute-box h3 { margin-bottom: 0.5rem; }
-  .contribute-box p { margin-bottom: 1rem; color: var(--text); }
 </style>

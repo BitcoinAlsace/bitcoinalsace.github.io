@@ -5,7 +5,8 @@ category: meetup
 image: "/images/events/meetup-2026-02.webp"
 description: "Atelier pratique pour apprendre à gérer son wallet Bitcoin depuis un smartphone, en toute sécurité."
 location: "Strasbourg (lieu annoncé sur Telegram)"
-registrationUrl: "https://t.me/+tCVz3Z4dTkhjMzZk"
+eventUrl: "https://t.me/+tCVz3Z4dTkhjMzZk"
+urlText: "Rejoignez-nous sur Telegram"
 free: true
 ---
 

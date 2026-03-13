@@ -5,7 +5,8 @@ category: meetup
 image: "/images/events/meetup-2026-03.webp"
 description: "Le 2e mercredi de mars : on décortique la preuve de travail (Proof of Work) et la question de sa consommation énergétique."
 location: "Bar La Perestroïka, 2 rue Thiergarten, Strasbourg"
-registrationUrl: "https://t.me/+tCVz3Z4dTkhjMzZk"
+eventUrl: "https://t.me/+tCVz3Z4dTkhjMzZk"
+urlText: "Rejoignez-nous sur Telegram"
 free: true
 ---
 

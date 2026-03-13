@@ -1,0 +1,85 @@
+---
+interface Props {
+  title: string;
+  author: string;
+  image?: string;
+  note?: string;
+  link?: string;
+  linkLabel?: string;
+  highlight?: boolean;
+}
+
+const { title, author, image, note, link, linkLabel, highlight } = Astro.props;
+---
+
+<div class={`book-cover-card${highlight ? ' book-cover-card--highlight' : ''}`}>
+  {image
+    ? <img src={image} alt={`Couverture de ${title}`} class="book-cover-img" loading="lazy" />
+    : <div class="book-cover-placeholder"></div>
+  }
+  <p class="book-cover-title">{title}</p>
+  <p class="book-cover-author">{author}</p>
+  {note && <span class="book-note">{note}</span>}
+  {link && <a href={link} class="doc-link" target="_blank">{linkLabel ?? 'Télécharger (PDF)'}</a>}
+</div>
+
+<style>
+  .book-cover-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.35rem;
+  }
+  .book-cover-card--highlight {
+    padding: 0.5rem 0.4rem 0.6rem;
+    background: var(--orange-light);
+    border-radius: 6px;
+    border: 1px solid color-mix(in srgb, var(--orange) 40%, transparent);
+  }
+  [data-theme="dark"] .book-cover-card--highlight {
+    background: rgba(247, 147, 26, 0.07);
+  }
+  .book-cover-img {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+  .book-cover-placeholder {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    background: linear-gradient(135deg, var(--gray-light), #e0e0e0);
+    border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+  [data-theme="dark"] .book-cover-placeholder {
+    background: linear-gradient(135deg, #2a2a2a, #333);
+  }
+  .book-cover-title {
+    font-size: 0.78rem;
+    font-weight: 600;
+    line-height: 1.3;
+    margin: 0;
+  }
+  .book-cover-author {
+    font-size: 0.72rem;
+    color: var(--gray);
+    margin: 0;
+  }
+  .book-note {
+    display: block;
+    font-size: 0.72rem;
+    color: var(--gray);
+    font-style: italic;
+  }
+  .doc-link {
+    font-size: 0.75rem;
+    background: var(--orange-light);
+    color: var(--orange-dark);
+    padding: 0.1rem 0.5rem;
+    border-radius: 999px;
+    text-decoration: none;
+  }
+</style>

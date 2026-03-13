@@ -10,14 +10,24 @@ export async function GET(context: APIContext) {
     title: 'Bitcoin Alsace — Événements',
     description: 'Les événements de l\'association Bitcoin Alsace : meetups, conférences, actualités.',
     site: context.site!,
+    image: {
+      url: new URL('/favicon.webp', context.site!).toString(),
+      title: 'Bitcoin Alsace',
+      link: context.site!.toString(),
+    },
     items: sorted.map(event => ({
       title: event.data.title,
       pubDate: event.data.date,
       description: event.data.description,
       link: `/evenements/${event.id}/`,
-      customData: event.data.image
-        ? `<media:content url="${context.site}${event.data.image.replace(/^\//, '')}" medium="image"/>`
-        : '',
+      customData: [
+        event.data.image
+          ? `<media:content url="${context.site}${event.data.image.replace(/^\//, '')}" medium="image"/>`
+          : '',
+        event.data.eventUrl
+          ? `<enclosure url="${event.data.eventUrl}" type="text/html"/>`
+          : '',
+      ].filter(Boolean).join(''),
     })),
     customData: '<language>fr-fr</language>',
     xmlns: { media: 'http://search.yahoo.com/mrss/' },

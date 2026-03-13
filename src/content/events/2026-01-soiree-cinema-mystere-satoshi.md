@@ -6,7 +6,8 @@ image: "/images/events/mystere-satoshi.webp"
 description: "Projection-débat en présence du réalisateur Rémi Forte. Entrée gratuite, inscription obligatoire."
 location: "Cinéma Le Cosmos, 3 rue des Francs-Bourgeois, Strasbourg"
 free: true
-registrationUrl: "https://cinema-cosmos.eu/seance/le-mystere-satoshi-aux-origines-du-bitcoin/"
+eventUrl: "https://cinema-cosmos.eu/seance/le-mystere-satoshi-aux-origines-du-bitcoin/"
+urlText: "S'inscrire (inscription obligatoire)"
 ---
 
 ## Soirée cinéma gratuite, 28 janvier

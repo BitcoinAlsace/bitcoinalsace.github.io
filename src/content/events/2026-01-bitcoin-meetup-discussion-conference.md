@@ -6,7 +6,8 @@ image: "/images/events/bitcoin-meetup-janvier-2026.webp"
 description: "Point sur l'événement crypto de l'Eurométropole de Strasbourg & Bitcoin Alsace. Discussion autour de la conférence à venir."
 location: "Café des Sports, 6 rue Ste-Hélène, Strasbourg"
 free: true
-registrationUrl: "https://t.me/+tCVz3Z4dTkhjMzZk"
+eventUrl: "https://t.me/+tCVz3Z4dTkhjMzZk"
+urlText: "Rejoignez-nous sur Telegram"
 ---
 
 ## Bitcoin Meetup, 7 janvier
