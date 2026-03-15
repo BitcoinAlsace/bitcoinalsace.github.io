@@ -6,6 +6,7 @@ description: "Aujourd'hui, votre pouvoir, votre choix"
 location: "votre bureau de vote"
 image: "/images/events/urne_homme.webp"
 free: true
+draft: false
 ---
 
 ## Aujourd'hui, votre pouvoir, votre choix
