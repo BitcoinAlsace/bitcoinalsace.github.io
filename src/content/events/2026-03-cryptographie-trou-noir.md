@@ -12,4 +12,4 @@ draft: false
 
 ## Les trous noirs sont peut-être des wallets bitcoin
 
-On a aimé l’article « [Et si les trous noirs étaient cryptés](https://www.epsiloon.com/tous-les-numeros/n56/et_si_les_trous_noirs_etaient_cyrptes/) » d' Epsiloon, n°56.
+On a aimé l’article « [Et si les trous noirs étaient cryptés](https://www.epsiloon.com/tous-les-numeros/n56/et_si_les_trous_noirs_etaient_cyrptes/) » d'Epsiloon, n°56.
