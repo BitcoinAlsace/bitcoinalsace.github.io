@@ -4,10 +4,9 @@ date: 2026-03-13
 category: actu
 description: "Les trous noirs sont peut-être des wallets bitcoin"
 image: "/images/events/cryptographie-trou-noir.webp"
-eventUrl: "[https://t.me/+tCVz3Z4dTkhjMzZk](https://t.me/c/3162144244/244)"
+eventUrl: https://t.me/+tCVz3Z4dTkhjMzZk
 urlText: "Parlons-en"
 free: true
-draft: false
 ---
 
 ## Les trous noirs sont peut-être des wallets bitcoin
