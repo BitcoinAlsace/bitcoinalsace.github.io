@@ -19,4 +19,4 @@ Ce mois-ci venez passer un moment convivial pour avoir des échanges libres et d
 ### Infos pratiques
 
 - **Gratuit**, sans inscription préalable
-- Rendez-vous au bar *Le Social Bar.* Le bar est sur la Place de Pierre, pas très loin des Halles. Arrêts de tram/bus : Place de Pierre.
+- Rendez-vous au bar *Le Social Bar.* Le bar est sur la Place de Pierre, pas très loin des Halles. Arrêts de Tram/Bus : Place de Pierre.
